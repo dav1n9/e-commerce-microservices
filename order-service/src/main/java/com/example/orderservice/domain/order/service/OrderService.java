@@ -1,5 +1,6 @@
 package com.example.orderservice.domain.order.service;
 
+import com.example.orderservice.domain.messagequeue.KafkaProducer;
 import com.example.orderservice.domain.order.dto.CreateOrderItemDto;
 import com.example.orderservice.domain.order.dto.CreateOrderRequestDto;
 import com.example.orderservice.domain.order.dto.OrderResponseDto;
@@ -31,6 +32,7 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
     private final ItemServiceClient itemServiceClient;
     private final UserServiceClient userServiceClient;
+    private final KafkaProducer kafkaProducer;
 
     @Transactional
     public OrderResponseDto save(Long userId, CreateOrderRequestDto request) {
@@ -51,7 +53,10 @@ public class OrderService {
         orderItemRepository.saveAll(orderItems);
         order.setOrderItems(orderItems);
 
-        return new OrderResponseDto(order);
+        OrderResponseDto orderDto = new OrderResponseDto(order);
+        kafkaProducer.send("remove-item-stock", orderDto);
+
+        return orderDto;
     }
 
     public List<OrderResponseDto> findAll(Long userId) {
@@ -71,7 +76,11 @@ public class OrderService {
         }
 
         order.setStatus(OrderStatus.CANCELED);
-        return new OrderResponseDto(order);
+
+        OrderResponseDto orderDto = new OrderResponseDto(order);
+        kafkaProducer.send("add-item-stock", orderDto);
+
+        return orderDto;
     }
 
     @Transactional
