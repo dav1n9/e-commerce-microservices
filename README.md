@@ -9,7 +9,7 @@
 - Docker / Docker Compose
 
 ## 아키텍처
-![2주차까지 완료](https://github.com/user-attachments/assets/528b13b5-73b4-4a58-bb32-8fc9b77747d7)
+![image](https://github.com/user-attachments/assets/6d838275-ce72-43a2-96e3-0f03580094c3)
 
 ## 구현 기능
 - Resilience 4j의 Circuit Breaker, Retry 를 통한 회복탄력성 갖추기
