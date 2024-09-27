@@ -1,9 +1,11 @@
 package com.example.userservice.domain.user.dto;
 
 import com.example.userservice.domain.user.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class SignupRequestDto {
 
     private String username;
