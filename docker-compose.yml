@@ -23,6 +23,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3307:3306"
+    volumes:
+      - ./mysql-init-files/:/docker-entrypoint-initdb.d
     healthcheck:
       test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD} && sleep 5" ]
       interval: 5s
