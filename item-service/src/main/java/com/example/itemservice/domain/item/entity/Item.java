@@ -32,6 +32,10 @@ public class Item extends Timestamped {
         this.stockQuantity = stockQuantity;
     }
 
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }

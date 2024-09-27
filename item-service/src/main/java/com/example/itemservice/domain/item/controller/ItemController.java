@@ -30,4 +30,10 @@ public class ItemController {
     public ResponseEntity<ItemResponseDto> findItemById(@PathVariable Long itemId) {
         return ResponseEntity.ok().body(itemService.findById(itemId));
     }
+
+    @PostMapping("/{itemId}")
+    public ResponseEntity<ItemResponseDto> updateQuantity(@PathVariable Long itemId,
+                                                          @RequestBody Integer quantity) {
+        return ResponseEntity.ok().body(itemService.updateQuantity(itemId, quantity));
+    }
 }

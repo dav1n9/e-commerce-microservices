@@ -31,4 +31,11 @@ public class ItemService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.ITEM_NOT_FOUND));
         return new ItemResponseDto(item);
     }
+
+    public ItemResponseDto updateQuantity(Long itemId, Integer quantity) {
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ITEM_NOT_FOUND));
+        item.setStockQuantity(quantity);
+        return new ItemResponseDto(item);
+    }
 }
